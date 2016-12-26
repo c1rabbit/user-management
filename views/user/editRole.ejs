@@ -1,0 +1,37 @@
+<%- partial('submenu.ejs') %>
+<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+  <h2>Edit Role</h2>
+
+  <%- partial('../error.ejs') %>
+
+
+  <form method="post" action="editRole" class="form-horizontal">
+    <input type="hidden" name="id" value="<%= role.id %>"/>
+    <div class="form-group">
+      <label class="control-label">Role Name</label>
+      <div>
+        <input type="text" name="role" class="form-control" placeholder="Role Name" value="<%= role.role %>" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-4">
+        <button class="btn btn-default pull-right" type="submit" >Update Role</button>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    //form formatting
+    $("span.input-group-addon").css('min-width','150px');
+    $("div.input-group > input").css('min-width','150px');
+    $("form > div > label").addClass("col-sm-4");
+    $("form > div > div").addClass("col-sm-8");
+
+  });
+
+</script>

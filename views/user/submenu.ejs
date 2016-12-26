@@ -1,0 +1,33 @@
+<div class="small">
+
+  <ul class="nav nav-tabs">
+    <li role="presentation">
+      <p class="navbar-text" style="margin-bottom:0 !important;padding-left:1em;padding-right:1em;">
+        <strong>User Management: </strong>
+      </p>
+    </li>
+    <li role="presentation" <%- (req.path == '/listUsers') ? 'class="active"' : ''  %> >
+      <a href="/listUsers">View Users</a>
+    </li>
+    <li role="presentation" <%- (req.path == '/addUser') ? 'class="active"' : ''  %>>
+      <a href="/addUser">Add New User</a>
+    </li>
+    <% if(req.path == '/editUser') { %>
+    <li role="presentation" class="active">
+      <a>Edit User</a>
+    </li>
+    <% } %>
+    <li role="presentation" <%- (req.path == '/listRoles') ? 'class="active"' : ''  %>>
+      <a href="/listRoles">View Roles</a>
+    </li>
+    <li role="presentation" <%- (req.path == '/addRole') ? 'class="active"' : ''  %>>
+      <a href="/addRole">Add New Role</a>
+    </li>
+    <% if(req.path == '/editRole') { %>
+    <li role="presentation" class="active">
+      <a>Edit Role</a>
+    </li>
+    <% } %>
+  </ul>
+
+</div>

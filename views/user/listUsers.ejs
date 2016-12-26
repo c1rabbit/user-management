@@ -1,0 +1,57 @@
+<%- partial('submenu.ejs') %>
+<div class="container">
+  <h2>
+    All Users
+    <small class="pull-right">
+        <small>
+          <% if( req.param('inactive') == 'show' ) { %>
+          <a href="/listUsers?inactive=hide">Hide Inactive Users</a>
+          <% } else{ %>
+          <a href="/listUsers?inactive=show">Show Inactive Users</a>
+          <% } %>
+        </small>
+    </small>
+  </h2>
+  <%- partial('../error.ejs') %>
+
+
+
+  <table class="table">
+
+    <tr>
+      <th>Login</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Role(s)</th>
+      <th>Active</th>
+      <th>   </th>
+    </tr>
+
+    <% users.forEach( function (user){ %>
+    <tr>
+      <td><%= user.login %></td>
+      <td><%= user.f_name %></td>
+      <td><%= user.l_name %></td>
+      <td><%= user.email %></td>
+      <td><ul class='roles'>
+        <% user.roles.forEach( function (role){ %> <li><%= role.role %></li> <% }) %>
+      </ul></td>
+      <td><%= (user.active) ? 'Y' : 'N' %></td>
+      <td><a href="/editUser?id=<%= user.id %> "> <span class="glyphicon glyphicon-edit"></span></a> </td>
+    </tr>
+    <% }) %>
+
+  </table>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    $("ul.roles > li").css({
+      "list-style-type":"none",
+      "margin-left":"-40px"
+    });
+
+  });
+</script>

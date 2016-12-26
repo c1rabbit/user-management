@@ -1,0 +1,24 @@
+<%- partial('submenu.ejs') %>
+<div class="container">
+  <h2>All Roles </h2>
+  <%- partial('../error.ejs') %>
+
+  <table class="table ">
+
+    <tr>
+      <th>Role Name</th>
+      <th></th>
+      <th></th>
+    </tr>
+
+    <% roles.forEach( function (role){ %>
+    <tr>
+      <td><%= role.role %></td>
+      <td><a href="/editRole?id=<%= role.id %> "> <span class="glyphicon glyphicon-edit"></span></a> </td>
+      <td><a href="/removeRole?id=<%= role.id %>"> <span class="glyphicon glyphicon-remove"></span> </a> </td>
+    </tr>
+    <% }) %>
+
+  </table>
+
+</div>

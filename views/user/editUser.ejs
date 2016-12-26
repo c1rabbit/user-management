@@ -1,0 +1,99 @@
+<%- partial('submenu.ejs') %>
+<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+  <h2>Edit User</h2>
+
+  <%- partial('../error.ejs') %>
+
+
+  <form method="post" action="editUser" class="form-horizontal">
+    <input type="hidden" name="id" value="<%= user.id %>"/>
+    <div class="form-group">
+      <label class="control-label">Login</label>
+      <div>
+        <input type="text" name="login" class="form-control" placeholder="Username" value="<%= user.login %>" required />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">First Name</label>
+      <div>
+        <input type="text" name="f_name" class="form-control" placeholder="First Name" value="<%= user.f_name %>"  />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">Last Name</label>
+      <div>
+        <input type="text" name="l_name" class="form-control" placeholder="Last Name" value="<%= user.l_name %>"  />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">Email</label>
+      <div>
+        <input type="text" name="email" class="form-control" placeholder="Email" value="<%= user.email %>" required />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">Roles</label>
+      <div>
+        <% roles.forEach( function (role) { %>
+        <div class="checkbox">
+          <input type="hidden" id="<%= role.id %>_add" name="roles_add" value="" />
+          <input type="hidden" id="<%= role.id %>_remove" name="roles_remove" value=''/>
+          <label><input type="checkbox" name="roleCheckBox" value="<%= role.id %>" onchange="toggleCheckBox(this);"/>
+            <%= role.role %></label>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">Active</label>
+      <div>
+        <div class="radio-inline">
+          <label><input type="radio" name="active" value="true" <% if(user.active == true) { %> checked <% } %> >Yes</label>
+        </div>
+        <div class="radio-inline">
+          <label><input type="radio" name="active" value="false" <% if(user.active == false) { %> checked <% } %> >No</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-4">
+        <button class="btn btn-default pull-right" type="submit" >Update User</button>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    //form formatting
+    $("span.input-group-addon").css('min-width','150px');
+    $("div.input-group > input").css('min-width','150px');
+    $("form > div > label").addClass("col-sm-4");
+    $("form > div > div").addClass("col-sm-8");
+
+    //init checkbox form values
+    <% for(var i=0; i< user.roles.length; i++){ %>
+      $("input[value='<%= user.roles[i].id  %>']").prop("checked", true);
+      $("input[id='<%= user.roles[i].role  %>']").prop("value", "<%= user.roles[i].id %>");
+    <% } %>
+  });
+  //handle checkbox form values
+  function toggleCheckBox(elem){
+    var add = document.getElementById(elem.value+"_add");
+    var remove = document.getElementById(elem.value+"_remove");
+    if(elem.checked){
+      //add role
+      add.value = elem.value;
+      remove.value = null;
+    }else{
+      //remove role
+      add.value= null;
+      remove.value = elem.value;
+
+    }
+  }
+
+
+</script>
