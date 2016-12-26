@@ -15,3 +15,8 @@ install dependencies: `npm install`
 create database called: `user_management`
 
 configure db settings in: `config/connections.js`
+
+
+## Production Notes
+
+change session 'secret' in `config/session.js`
