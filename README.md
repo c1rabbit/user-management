@@ -5,8 +5,13 @@ a [Sails](http://sailsjs.org) application
 a MVC User Management Application
 
 ## Setup
-initialize: `install npm`
 
-create database: `user_management`
+install [node.js](https://nodejs.org/)
 
-setup db settings in: `config/connections.js`
+install [sails.js](https://www.npmjs.com/package/sails) globally: `npm install sails -g`
+
+install dependencies: `npm install`
+
+create database called: `user_management`
+
+configure db settings in: `config/connections.js`
