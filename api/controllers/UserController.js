@@ -138,6 +138,9 @@ module.exports = {
 						user.l_name = req.param('l_name');
 						user.email = req.param('email');
 						user.active = req.param('active');
+						if(req.param('password') != ''){
+							user.password = req.param('password');
+						}
 
 						var add = req.param('roles_add');
 						//sails.log(req.param('roles_add'));
