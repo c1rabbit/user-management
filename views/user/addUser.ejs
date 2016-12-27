@@ -4,13 +4,13 @@
 
     <%- partial('../error.ejs') %>
 
-    <form method="post" action="addUser" >
+    <form method="post" action="addUser" id="myForm" >
       <input type="text" name="login" placeholder="Username" class="form-control"
         value="<%= (typeof message != 'undefined') ? req.param('login') : '' %>"  required />
       <input type="password" name="password" placeholder="password" class="form-control"
-        value=""  required />
+        id="password"  required />
       <input type="password" name="password2" placeholder="password again" class="form-control"
-        value=""  required />
+        id="password2"  required />
       <input type="text" name="f_name" placeholder="First Name" class="form-control"
         value="<%= (typeof message != 'undefined') ? req.param('f_name') : '' %>"  />
       <input type="text" name="l_name" placeholder="Last Name" class="form-control"
@@ -21,3 +21,22 @@
     </form>
 
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    $("#myForm").validate({
+      rules: {
+        password:{
+          required: true,
+          minlength: 8,
+          maxlength: 20
+        },
+        password2:{
+          equalTo: "#password",
+          minlength: 8,
+          maxlength: 20
+        }
+      }
+    });
+  });
+</script>

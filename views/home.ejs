@@ -2,7 +2,7 @@
 
   <%- partial('error.ejs') %>
 
-  <h4>You are logged in as: <%= req.session.login %></h4>
+  <h4>Welcome, <%= req.session.name.charAt(0).toUpperCase() + req.session.name.slice(1).toLowerCase() %>!</h4>
 
   <div class="col-xs-6 col-sm-4 text-center">
 

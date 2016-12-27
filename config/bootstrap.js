@@ -22,7 +22,7 @@ module.exports.bootstrap = function(cb) {
         login:'admin',
         email:'admin@localhost',
         password:'',
-        f_name:'',
+        f_name:'admin',
         l_name:'',
         active: true
       }).exec(function(err, user){

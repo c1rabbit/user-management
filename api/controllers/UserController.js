@@ -27,6 +27,7 @@ module.exports = {
 			else{
 				//sails.log(user);
 				req.session.me = user.id;
+				req.session.name = user.f_name;
 				sails.log.info("[Login]: " + user.login + " logged in");
 				return res.view('home');
 			}
