@@ -11,11 +11,24 @@ module.exports = function(req, res, next) {
 
   // User is allowed, proceed to the next policy,
   // or if this is the last policy, the controller
-  if (req.session.authenticated) {
-    return next();
-  }
 
-  // User is not allowed
-  // (default res.forbidden() behavior can be overridden in `config/403.js`)
-  return res.forbidden('You are not permitted to perform this action.');
+  User.findOne({
+    id:req.session.me
+  }).populate('roles')
+  .exec(function(err, user){
+    if(err || typeof user == 'undefined') {
+      sails.log.error("[policy/isAdmin]: failed");
+      return res.forbidden();
+    }
+    for(var i=0; i< user.roles.length; i++){
+      if(user.roles[i].role == 'admin'){
+        return next();
+      }
+    }
+    // User is not allowed
+    // (default res.forbidden() behavior can be overridden in `config/403.js`)
+    return res.forbidden('You are not permitted to perform this action.');
+  });
+
+
 };

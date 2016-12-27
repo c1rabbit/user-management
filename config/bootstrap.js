@@ -21,6 +21,7 @@ module.exports.bootstrap = function(cb) {
       User.findOrCreate({
         login:'admin',
         email:'admin@localhost',
+        password:'',
         f_name:'',
         l_name:'',
         active: true

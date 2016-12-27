@@ -27,24 +27,26 @@ module.exports.policies = {
   ***************************************************************************/
 
   '*': false,
-  'error' : true,
-  '/home': 'sessionAuth',
 
   UserController: {
     '*': false,
     'logout': 'sessionAuth',
     'login': true,
     'listUsers': 'sessionAuth',
-    'addUser' : 'sessionAuth',
-    'editUser' : 'sessionAuth',
-    'addUser' : 'sessionAuth'
+    'addUser' : 'isAdmin',
+    'editUser' : 'isAdmin',
+    'addUser' : 'isAdmin',
+    'home' : 'sessionAuth'
   },
   RoleController: {
     '*': false,
-    'addRole': 'sessionAuth',
-    'editRole': 'sessionAuth',
+    'addRole': 'isAdmin',
+    'editRole': 'isAdmin',
     'listRoles': 'sessionAuth',
-    'removeRole': 'sessionAuth'
+    'removeRole': 'isAdmin'
+  },
+  PageController:{
+    '*':'sessionAuth'
   }
 
   /***************************************************************************

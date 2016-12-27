@@ -6,14 +6,6 @@
  */
 
 module.exports = {
-	get : function(req, res){
-		Role.find({
- 			limit: 10
-		}).exec(function(err, results){
-				return res.json(results);
-		});
-
-	},
 	addRole : function(req, res){
 		if(req.method=='GET'){
 			sails.log('[RoleController.addRole]: GET ');

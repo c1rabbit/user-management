@@ -16,6 +16,11 @@ create database called: `user_management`
 
 configure db settings in: `config/connections.js`
 
+## Default Login
+
+login: admin
+no password
+
 
 ## Production Notes
 

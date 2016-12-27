@@ -10,18 +10,35 @@ module.exports = {
 
 		var login = req.param('login');
 		var pw = req.param('pw');
-		req.session.userId = 10000;
-		req.session.login = login;
-		req.session.authenticated = true;
-		sails.log.info("user login: " + login);
+		//console.log(req.session);
 
-		return res.view('home');
+		User.findOne({
+			login: req.param('login'),
+			password: req.param('pw')
+		}).populate('roles')
+		.exec( function(err, user){
+			if(err || typeof user == 'undefined') {
+				sails.log.info("[Login]: " + req.param('login') + " login fail");
+				return res.view('user/login', {
+					message:'login credentials are incorrect',
+					status: 'error'
+				});
+			}
+			else{
+				//sails.log(user);
+				req.session.me = user.id;
+				sails.log.info("[Login]: " + user.login + " logged in");
+				return res.view('home');
+			}
+		});
 	},
 	logout : function(req, res){
-		req.session.authenticated = null;
-		req.session.destroy;
+		sails.log.info("[Logout]: ID:" + req.session.me );
+		req.session.me = null;
+		req.session.destroy();
 		return res.view('user/login', {
-			message : "You have been logged out."
+			message : "You have been logged out.",
+			status: 'success'
 		});
 	},
 
@@ -62,6 +79,7 @@ module.exports = {
 			f_name: req.param('f_name'),
 			l_name: req.param('l_name'),
 			email: req.param('email'),
+			password: req.param('password'),
 			active: true
 		}).exec(function(err,result){
 			if (err) {

@@ -8,10 +8,18 @@
 module.exports = {
   tableName: "users",
   attributes: {
+    id:{
+      type:'int',
+      primaryKey:true,
+      autoIncrement:true
+    },
     login:{
       type: 'string',
       unique: true,
       required: true
+    },
+    password:{
+      type: 'string'
     },
     f_name: {
       type: 'string'
