@@ -1,0 +1,51 @@
+<%- partial('submenu.ejs') %>
+<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+  <h2>Change Password</h2>
+
+  <%- partial('../error.ejs') %>
+
+  <form method="post" action="/changePass" id="myForm" class="form-horizontal">
+    <input type='hidden' name='id' value="<%= user.id %>" />
+    <div class="form-group">
+      <label class="control-label">Password</label>
+      <div>
+        <input type="password" name="password" placeholder="password" class="form-control"
+        id="password"  required />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">Confirm Password</label>
+      <div>
+        <input type="password" name="password2" placeholder="password again" class="form-control"
+          id="password2"  required />
+      </div>
+    </div>
+    <button class="btn btn-default pull-right" type="submit" >Change</button>
+
+  </form>
+
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    //form formatting
+    $("span.input-group-addon").css('min-width','150px');
+    $("div.input-group > input").css('min-width','150px');
+    $("form > div > label").addClass("col-sm-4");
+    $("form > div > div").addClass("col-sm-8");
+
+    $("#myForm").validate({
+      rules: {
+        password:{
+          required: true,
+          minlength: 8,
+          maxlength: 20
+        },
+        password2:{
+          equalTo: "#password",
+          minlength: 8,
+          maxlength: 20
+        }
+      }
+    });
+  });
+</script>

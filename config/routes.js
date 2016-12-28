@@ -42,6 +42,8 @@ module.exports.routes = {
   '/listUsers' : 'UserController.listUsers',
   '/addUser' : 'UserController.addUser',
   '/editUser' : 'UserController.editUser',
+  '/passwordReset' : 'UserController.passwordReset',
+  '/changePass' : 'UserController.changePass',
 
   '/addRole': 'RoleController.addRole',
   '/listRoles': 'RoleController.listRoles',

@@ -35,6 +35,10 @@ module.exports = {
       type: 'boolean',
       defaultsTo: false
     },
+    temp_pw:{
+      type:'boolean',
+      defaultsTo: true
+    },
     roles: {
       collection: 'role',
       via: 'users',

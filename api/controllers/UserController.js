@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+
+
 module.exports = {
 	login : function(req, res){
 
@@ -12,9 +14,11 @@ module.exports = {
 		var pw = req.param('pw');
 		//console.log(req.session);
 
+		var bcrypt = require('bcrypt-nodejs');
+
 		User.findOne({
-			login: req.param('login'),
-			password: req.param('pw')
+			login: req.param('login')
+			//password: req.param('pw')
 		}).populate('roles')
 		.exec( function(err, user){
 			if(err || typeof user == 'undefined') {
@@ -24,12 +28,29 @@ module.exports = {
 					status: 'error'
 				});
 			}
-			else{
+			else if(!user.active){
+				return res.view('user/login', {
+					message:'Your account has been marked inactive',
+					status: 'warning'
+				});
+			}
+			else if(bcrypt.compareSync(pw,user.password) ){
 				//sails.log(user);
 				req.session.me = user.id;
 				req.session.name = user.f_name;
 				sails.log.info("[Login]: " + user.login + " logged in");
-				return res.view('home');
+				if(user.temp_pw){
+					return res.view('user/changePass',{user});
+				}
+				else{
+					return res.view('home');
+				}
+			}
+			else{
+				return res.view('user/login', {
+					message:'login credentials are incorrect',
+					status: 'error'
+				});
 			}
 		});
 	},
@@ -75,12 +96,14 @@ module.exports = {
 				status: 'warning'
 			})
 		}
+		var bcrypt = require('bcrypt-nodejs');
+		var temp_pw = Math.random().toString(36).slice(2);
 		User.create({
 			login: req.param('login'),
 			f_name: req.param('f_name'),
 			l_name: req.param('l_name'),
 			email: req.param('email'),
-			password: req.param('password'),
+			password: bcrypt.hashSync(temp_pw),
 			active: true
 		}).exec(function(err,result){
 			if (err) {
@@ -93,14 +116,16 @@ module.exports = {
 				sails.log.info("new user created: " + result.login);
 				//sails.log(result);
 
-				return res.view('user/addUser',{
+				return res.view('user/tempPass',{
 					message: "New User Created: " + result.login,
-					status: 'success'
+					status: 'success',
+					temp_pw
 				});
 			}
 		});
 	},
 	editUser : function(req, res){
+		var bcrypt = require('bcrypt-nodejs');
 
 		if(req.method == 'GET'){
 			if(!req.param('id')){
@@ -139,7 +164,7 @@ module.exports = {
 						user.email = req.param('email');
 						user.active = req.param('active');
 						if(req.param('password') != ''){
-							user.password = req.param('password');
+							user.password = bcrypt.hashSync(req.param('password'));
 						}
 
 						var add = req.param('roles_add');
@@ -182,6 +207,28 @@ module.exports = {
 
 				});
 			}
+	},
+	changePass : function(req, res){
+		var bcrypt = require('bcrypt-nodejs');
+
+		User.findOne({
+			id:req.param('id')
+		}).exec(function(err, user){
+			if(err) return res.err(err);
+			user.temp_pw = false;
+			user.password = bcrypt.hashSync(req.param('password'));
+
+			user.save(function(err){
+				if(err) return res.err(err);
+
+				sails.log.info("[UserController.changePass]: successful for: " + user.login)
+				return res.view('home', {
+					message:'Password changed successfully',
+					status:'success'
+				});
+			})
+		});
+
 	}
 
 };

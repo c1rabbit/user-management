@@ -10,6 +10,7 @@
  */
 
 module.exports.bootstrap = function(cb) {
+	var bcrypt = require('bcrypt-nodejs');
   sails.log.info("checking database defaults...")
   //assign default roles here
   var roles = ['admin', 'accounting'];
@@ -21,10 +22,11 @@ module.exports.bootstrap = function(cb) {
       User.findOrCreate({
         login:'admin',
         email:'admin@localhost',
-        password:'',
+        password:bcrypt.hashSync("admin"),
         f_name:'admin',
         l_name:'',
-        active: true
+        active: true,
+        temp_pw:false
       }).exec(function(err, user){
         if (err) return cb(err);
         user.roles.add({id: role.id});
