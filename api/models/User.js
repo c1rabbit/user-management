@@ -43,6 +43,13 @@ module.exports = {
       collection: 'role',
       via: 'users',
       dominant:true
+    },
+    isAdmin: function (){
+      var isAdmin = false;
+      for(var i = 0; i<this.roles.length; i++){
+        if (this.roles[i].role == 'admin') isAdmin = true;
+      }
+      return isAdmin;
     }
 
   }

@@ -32,7 +32,7 @@ module.exports.bootstrap = function(cb) {
         user.roles.add({id: role.id});
         user.save(function(err){
           if (err) return cb(err);
-          else { return null };
+          //else { return null };
         });
 
       });

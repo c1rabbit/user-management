@@ -6,6 +6,7 @@
         <strong>User Management: </strong>
       </p>
     </li>
+    <% if(req.session.isAdmin){ %>
     <li role="presentation" <%- (req.path == '/listUsers') ? 'class="active"' : ''  %> >
       <a href="/listUsers">View Users</a>
     </li>
@@ -28,6 +29,7 @@
       <a>Edit Role</a>
     </li>
     <% } %>
+  <% } %>
   </ul>
 
 </div>

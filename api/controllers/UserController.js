@@ -21,6 +21,7 @@ module.exports = {
 			//password: req.param('pw')
 		}).populate('roles')
 		.exec( function(err, user){
+
 			if(err || typeof user == 'undefined') {
 				sails.log.info("[Login]: " + req.param('login') + " login fail");
 				return res.view('user/login', {
@@ -38,6 +39,12 @@ module.exports = {
 				//sails.log(user);
 				req.session.me = user.id;
 				req.session.name = user.f_name;
+				if(user.isAdmin()) {
+					req.session.isAdmin = true;
+				} else {
+					req.session.isAdmin = false;
+				}
+
 				sails.log.info("[Login]: " + user.login + " logged in");
 				if(user.temp_pw){
 					return res.view('user/changePass',{user});
@@ -163,9 +170,9 @@ module.exports = {
 						user.l_name = req.param('l_name');
 						user.email = req.param('email');
 						user.active = req.param('active');
-						if(req.param('password') != ''){
-							user.password = bcrypt.hashSync(req.param('password'));
-						}
+						// if(req.param('password') != ''){
+						// 	user.password = bcrypt.hashSync(req.param('password'));
+						// }
 
 						var add = req.param('roles_add');
 						//sails.log(req.param('roles_add'));
@@ -208,27 +215,117 @@ module.exports = {
 				});
 			}
 	},
+	editProfile : function(req, res){
+		if (req.method == 'GET'){
+			User.findOne({
+				id:req.session.me
+			}).exec(function(err, user){
+				if (err) return res.error({err});
+				return res.view('user/editProfile',{user});
+			});
+		}
+		else if(req.method == 'POST'){
+
+			if(req.param('email') == ''){
+				return res.view('user/editProfile',{
+					message: "Required fields are empty",
+					status: 'warning',
+					user
+				});
+			}
+
+
+			UserService.getUserById({
+				id: req.param('id')
+			}, function(err, user){
+					//console.log(user);
+					var temp = JSON.parse(JSON.stringify(user)); //copy user
+					user.f_name = req.param('f_name');
+					user.l_name = req.param('l_name');
+					user.email = req.param('email');
+
+					//save result
+					user.save(function(err){
+						//console.log(user);
+						if(err) {
+							user = temp;
+							sails.log.error(err);
+							return res.view('user/editProfile', {
+								message: err,
+								status: 'error',
+								user: temp,
+								id: req.param('id')
+							});
+						}
+						else{
+							sails.log.info("User: " + user.login + " has been updated...");
+							return res.view('home',{
+								id: req.param('id'),
+								message : "User Profile: " + user.login + " has been updated",
+								status: "success"
+							} );
+						}
+					});
+				});
+		}
+	},
 	changePass : function(req, res){
+		if(req.method == 'GET'){
+			User.findOne({
+				id:req.session.me
+			}).exec(function(err, user){
+				if (err) return res.error(err);
+				return res.view('user/changePass',{user});
+			});
+
+		}
+
+		else if(req.method == 'POST'){
+			var bcrypt = require('bcrypt-nodejs');
+
+			User.findOne({
+				id:req.param('id')
+			}).exec(function(err, user){
+				if(err) return res.err(err);
+				user.temp_pw = false;
+				user.password = bcrypt.hashSync(req.param('password'));
+
+				user.save(function(err){
+					if(err) return res.err(err);
+
+					sails.log.info("[UserController.changePass]: successful for: " + user.login)
+					return res.view('home', {
+						message:'Password changed successfully',
+						status:'success'
+					});
+				});
+			});
+		}
+
+	},
+	passwordReset : function(req, res){
 		var bcrypt = require('bcrypt-nodejs');
+		var temp_pw = Math.random().toString(36).slice(2);
 
 		User.findOne({
-			id:req.param('id')
+			id: req.param('id')
 		}).exec(function(err, user){
 			if(err) return res.err(err);
-			user.temp_pw = false;
-			user.password = bcrypt.hashSync(req.param('password'));
+			user.temp_pw = true;
+			user.password = bcrypt.hashSync(temp_pw);
 
 			user.save(function(err){
 				if(err) return res.err(err);
 
-				sails.log.info("[UserController.changePass]: successful for: " + user.login)
-				return res.view('home', {
-					message:'Password changed successfully',
-					status:'success'
+				sails.log.info("[UserController.resetPass]: successful for: " + user.login)
+				return res.view('user/tempPass', {
+					message:'Temp password created for: ' + user.login ,
+					status:'success',
+					temp_pw
 				});
-			})
-		});
+			});
 
+		})
 	}
 
 };

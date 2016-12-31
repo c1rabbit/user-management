@@ -32,9 +32,10 @@ module.exports.policies = {
     '*': false,
     'logout': 'sessionAuth',
     'login': true,
-    'listUsers': 'sessionAuth',
+    'listUsers': 'isAdmin',
     'addUser' : 'isAdmin',
     'editUser' : 'isAdmin',
+    'editProfile' : 'isMe',
     'addUser' : 'isAdmin',
     'home' : 'sessionAuth',
     'passwordReset' : 'isAdmin',
@@ -44,7 +45,7 @@ module.exports.policies = {
     '*': false,
     'addRole': 'isAdmin',
     'editRole': 'isAdmin',
-    'listRoles': 'sessionAuth',
+    'listRoles': 'isAdmin',
     'removeRole': 'isAdmin'
   },
   PageController:{
