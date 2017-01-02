@@ -4,7 +4,9 @@
 
   <%- partial('../error.ejs') %>
 
-  <p>Tempoary password is: <%= temp_pw %></p>
+  <% if(typeof temp_pw != 'undefined'){ %>
+    <p>Tempoary password is: <%= temp_pw %></p>
+  <% } %>
   <p>Please change it at the next login.</p>
 
   <p><a href="/home" class="btn btn-default" />Home</a></p>

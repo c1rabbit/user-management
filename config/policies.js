@@ -39,7 +39,8 @@ module.exports.policies = {
     'addUser' : 'isAdmin',
     'home' : 'sessionAuth',
     'passwordReset' : 'isAdmin',
-    'changePass' : 'isMe'
+    'changePass' : 'isMe',
+    'emailPassword' : true
   },
   RoleController: {
     '*': false,

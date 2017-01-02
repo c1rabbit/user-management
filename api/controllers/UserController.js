@@ -333,6 +333,36 @@ module.exports = {
 				});
 			});
 		})
+	},
+	emailPassword : function(req, res){
+		var bcrypt = require('bcrypt-nodejs');
+		var temp_pw = Math.random().toString(36).slice(2);
+
+		User.findOne({
+			email: req.param('email')
+		}).exec(function(err, user){
+			if(err) return res.err(err);
+			user.temp_pw = true;
+			user.password = bcrypt.hashSync(temp_pw);
+
+			user.save(function(err){
+				if(err) return res.err(err);
+
+				sails.log.info("[UserController.emailPassword]: successful for: " + user.login)
+
+				EmailService.sendEmail({
+					to: user.email,
+					subject:'[Password Reset]',
+					text:'Your login password has been reset. \r\n\r\n Temp password: ' + temp_pw
+				}, function(err){
+					if(err) return res.err(err);
+					return res.view('user/tempPass', {
+						message:'Temp password has been emailed to: ' + user.email ,
+						status:'success'
+					});
+				});
+			});
+		})
 	}
 
 };
