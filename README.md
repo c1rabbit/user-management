@@ -16,6 +16,9 @@ create database called: `user_management`
 
 configure db settings in: `config/connections.js`
 
+signup [mailgun.js](https://www.mailgun.com/)
+update config settings in `config/mailgun.js`
+
 ## Default Login
 
 login: admin

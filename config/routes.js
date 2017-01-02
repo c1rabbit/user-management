@@ -49,7 +49,10 @@ module.exports.routes = {
   '/addRole': 'RoleController.addRole',
   '/listRoles': 'RoleController.listRoles',
   '/editRole': 'RoleController.editRole',
-  '/removeRole': 'RoleController.removeRole'
+  '/removeRole': 'RoleController.removeRole',
+
+  '/sendEmail':'EmailController.sendEmail'
+
 
 
 
