@@ -318,13 +318,20 @@ module.exports = {
 				if(err) return res.err(err);
 
 				sails.log.info("[UserController.resetPass]: successful for: " + user.login)
-				return res.view('user/tempPass', {
-					message:'Temp password created for: ' + user.login ,
-					status:'success',
-					temp_pw
+
+				EmailService.sendEmail({
+					to: user.email,
+					subject:'[Password Reset]',
+					text:'Your login password has been reset. \r\n\r\n Temp password: ' + temp_pw
+				}, function(err){
+					if(err) return res.err(err);
+					return res.view('user/tempPass', {
+						message:'Temp password created for: ' + user.login ,
+						status:'success',
+						temp_pw
+					});
 				});
 			});
-
 		})
 	}
 
