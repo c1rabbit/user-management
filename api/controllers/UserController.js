@@ -35,7 +35,7 @@ module.exports = {
 					status: 'warning'
 				});
 			}
-			else if(bcrypt.compareSync(pw,user.password) ){
+			else if(bcrypt.compareSync(pw, user.password) ){
 				//sails.log(user);
 				req.session.me = user.id;
 				req.session.name = user.f_name;
@@ -144,8 +144,8 @@ module.exports = {
 				 id: req.param('id')
 			 }, function(err, user){
 				 if(err) return res.view('error', err);
-					sails.log(user);
-					return res.view('user/editUser', {user, roles} );
+				 sails.log(user);
+				 return res.view('user/editUser', {user, roles} );
 				});
 			});
 		}
@@ -219,7 +219,7 @@ module.exports = {
 		if (req.method == 'GET'){
 			User.findOne({
 				id:req.session.me
-			}).exec(function(err, user){
+			}).populate('roles').exec(function(err, user){
 				if (err) return res.error({err});
 				return res.view('user/editProfile',{user});
 			});

@@ -29,16 +29,14 @@
         </li> -->
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <% if (typeof req.session.me!='undefined') { %>
-        <li>
-          <a href="editProfile?id=<%= req.session.me %>" >Edit Profile</a>
-        </li>
-        <% } %>
         <% if (typeof req.session == 'undefined') {  %>
         <li><a href="/login">Login</a></li>
         <% } else if (typeof req.session.me == 'undefined') {  %>
         <li><a href="/login">Login</a></li>
         <% } else { %>
+        <li>
+          <a href="editProfile?id=<%= req.session.me %>" >Edit Profile</a>
+        </li>
         <li><a href="/logout">Logout</a></li>
         <% } %>
         <!-- <li><a href="/admin">Admin</a></li> -->
