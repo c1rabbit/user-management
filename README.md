@@ -22,9 +22,13 @@ update config settings in `config/mailgun.js`
 ## Default Login
 
 login: admin
-no password
+pw: admin
 
 
 ## Production Notes
 
 change session 'secret' in `config/session.js`
+
+- persist node.js on server
+`npm install forever -g`
+`forever app.js --prod`

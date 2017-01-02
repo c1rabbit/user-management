@@ -14,31 +14,46 @@ module.exports.bootstrap = function(cb) {
   sails.log.info("checking database defaults...")
   //assign default roles here
   var roles = ['admin', 'accounting'];
-  for(var i = 0 ; i< roles.length; i++){
+	roles.forEach(function(role){
     Role.findOrCreate(
-      {role:roles[i]}, {role:roles[i]}
+      {role:role}
     ).exec(function (err, role) {
-      if (err) return cb(err);
-      User.findOrCreate({
-        login:'admin',
-        email:'admin@localhost',
-        password:bcrypt.hashSync("admin"),
-        f_name:'admin',
-        l_name:'',
-        active: true,
-        temp_pw:false
-      }).exec(function(err, user){
-        if (err) return cb(err);
-        user.roles.add({id: role.id});
-        user.save(function(err){
-          if (err) return cb(err);
-          //else { return null };
-        });
+			if (err) sails.log.error(err);
+		});
+	});
 
-      });
+	User.find({
+		login:'admin'
+	}).exec(function(err, user){
+		if (err) sails.log.error(err);
+		if (user.length == 0){ //if admin doesn't exist, create and add roles
+			User.create({
+	      login:'admin',
+	      email:'admin@localhost',
+	      password:bcrypt.hashSync("admin"),
+	      f_name:'admin',
+	      l_name:'',
+	      active: true,
+	      temp_pw: false
+	    }).exec(function(err, user){
+	      if (err) sails.log.error(err);
 
-    });
-  }
+				Role.findOne({
+					role:'admin'
+				}).exec(function(err, role){
+					user.roles.add({id: role.id});
+					user.save(function(err){
+						if (err) sails.log.error(err);
+						else sails.log.info("default admin login created");
+					});
+				});
+	    });
+		}
+		else{
+			//do nothing since db already has admin login
+		}
+	});
+
   cb();
 
   // It's very important to trigger this callback method when you are finished
