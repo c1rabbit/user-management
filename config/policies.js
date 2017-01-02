@@ -50,9 +50,6 @@ module.exports.policies = {
   },
   PageController:{
     '*':'sessionAuth'
-  },
-  EmailController:{
-    '*': true
   }
 
   /***************************************************************************
