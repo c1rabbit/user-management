@@ -17,7 +17,7 @@ module.exports = function(req, res, next) {
   }).populate('roles')
   .exec(function(err, user){
     if(err || typeof user == 'undefined') {
-      sails.log.error("[policy/isAdmin]: failed");
+      sails.log.warn("[policy/isAdmin]: failed");
       return res.forbidden();
     }
     if(user.isAdmin()){
