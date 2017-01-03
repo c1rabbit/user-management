@@ -51,6 +51,12 @@ module.exports.policies = {
   },
   PageController:{
     '*':'sessionAuth'
+  },
+  PropertyController:{
+    '*': false,
+    'listProperties': 'isAdmin',
+    'addProperty': 'isAdmin',
+    'editProperty': 'isAdmin'
   }
 
   /***************************************************************************

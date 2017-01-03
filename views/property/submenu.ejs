@@ -1,0 +1,24 @@
+<div class="small">
+
+  <ul class="nav nav-tabs">
+    <li role="presentation">
+      <p class="navbar-text" style="margin-bottom:0 !important;padding-left:1em;padding-right:1em;">
+        <strong>Property Management: </strong>
+      </p>
+    </li>
+    <% if(req.session.isAdmin){ %>
+    <li role="presentation" <%- (req.path == '/listProperties') ? 'class="active"' : ''  %> >
+      <a href="/listProperties">View Properties</a>
+    </li>
+    <li role="presentation" <%- (req.path == '/addProperty') ? 'class="active"' : ''  %>>
+      <a href="/addProperty">Add New Property</a>
+    </li>
+    <% if(req.path == '/editProperty') { %>
+    <li role="presentation" class="active">
+      <a>Edit Property</a>
+    </li>
+    <% } %>
+    <% } %>
+  </ul>
+
+</div>

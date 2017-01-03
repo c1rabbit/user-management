@@ -52,7 +52,11 @@ module.exports.routes = {
   '/removeRole': 'RoleController.removeRole',
 
   '/forgotPassword': {view: 'user/forgotPassword'},
-  '/emailPass': 'UserController.emailPassword'
+  '/emailPass': 'UserController.emailPassword',
+
+  '/listProperties': 'PropertyController.listProperties',
+  '/addProperty' : 'PropertyController.addProperty',
+  '/editProperty' : 'PropertyController.editProperty'
 
 
 

@@ -1,0 +1,81 @@
+<%- partial('submenu.ejs') %>
+<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+  <h2>Edit Property</h2>
+
+  <%- partial('../error.ejs') %>
+
+
+  <form method="post" action="editProperty" class="form-horizontal">
+    <input type="hidden" name="id" value="<%= property.id %>"/>
+    <div class="form-group">
+      <label class="control-label">Address</label>
+      <div>
+        <input type="text" name="address" class="form-control" placeholder="Address" value="<%= property.address %>" required />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">City</label>
+      <div>
+        <input type="text" name="city" class="form-control" placeholder="City" value="<%= property.city %>"  required/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">State</label>
+      <div>
+        <input type="text" name="state" class="form-control" placeholder="State" value="<%= property.state %>"  required/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">Zip Code</label>
+      <div>
+        <input type="text" name="zip" class="form-control" placeholder="Zip Code" value="<%= property.zip %>" required />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">Active</label>
+      <div>
+        <div class="radio-inline">
+          <label><input type="radio" name="active" value="true" <% if(property.active == true) { %> checked <% } %> >Yes</label>
+        </div>
+        <div class="radio-inline">
+          <label><input type="radio" name="active" value="false" <% if(property.active == false) { %> checked <% } %> >No</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-4">
+        <button class="btn btn-default pull-right" type="submit" >Update Property</button>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    //form formatting
+    $("span.input-group-addon").css('min-width','150px');
+    $("div.input-group > input").css('min-width','150px');
+    $("form > div > label").addClass("col-sm-4");
+    $("form > div > div").addClass("col-sm-8");
+
+  });
+  //handle checkbox form values
+  function toggleCheckBox(elem){
+    var add = document.getElementById(elem.value+"_add");
+    var remove = document.getElementById(elem.value+"_remove");
+    if(elem.checked){
+      //add role
+      add.value = elem.value;
+      remove.value = null;
+    }else{
+      //remove role
+      add.value= null;
+      remove.value = elem.value;
+
+    }
+  }
+
+
+</script>

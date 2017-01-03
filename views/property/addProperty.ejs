@@ -1,0 +1,77 @@
+<%- partial('submenu.ejs') %>
+<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+  <h2>Add New User</h2>
+
+    <%- partial('../error.ejs') %>
+
+    <form method="post" action="addProperty" class="form-horizontal">
+      <div class="form-group">
+        <label class="control-label">Address</label>
+        <div>
+          <input type="text" name="address" placeholder="Address" class="form-control"
+          value="<%= (typeof message != 'undefined') ? req.param('address') : '' %>"  required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label">City</label>
+        <div>
+          <input type="text" name="city" placeholder="City" class="form-control"
+            value="<%= (typeof message != 'undefined') ? req.param('city') : '' %>"  />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label">State</label>
+        <div>
+          <input type="text" name="state" placeholder="State" class="form-control"
+            value="<%= (typeof message != 'undefined') ? req.param('state') : '' %>"  />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Zip Code</label>
+        <div>
+          <input type="number" name="zip" placeholder="Zip Code" class="form-control"
+            value="<%= (typeof message != 'undefined') ? req.param('zip') : '' %>" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Active</label>
+        <div>
+          <div class="radio-inline">
+            <label><input type="radio" name="active" value="true" <% if(req.param('active') == true) { %> checked <% } %> required >Yes</label>
+          </div>
+          <div class="radio-inline">
+            <label><input type="radio" name="active" value="false" <% if(req.param('active') == false) { %> checked <% } %> required >No</label>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-default pull-right" type="submit" >Add Property</button>
+
+    </form>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    //form formatting
+    $("span.input-group-addon").css('min-width','150px');
+    $("div.input-group > input").css('min-width','150px');
+    $("form > div > label").addClass("col-sm-4");
+    $("form > div > div").addClass("col-sm-8");
+
+    // $("#myForm").validate({
+    //   rules: {
+    //     password:{
+    //       required: true,
+    //       minlength: 8,
+    //       maxlength: 20
+    //     },
+    //     password2:{
+    //       equalTo: "#password",
+    //       minlength: 8,
+    //       maxlength: 20
+    //     }
+    //   }
+    // });
+  });
+</script>
