@@ -1,0 +1,27 @@
+
+<div id="cover">
+  <h1 class="cover-heading">Diamond Real Estate</h1>
+  <p class="lead">Finding the right home for you.</p>
+  <p class="lead">
+    <a href="#" class="btn btn-lg btn-info">Learn more</a>
+  </p>
+</div>
+
+<%- partial('listings.ejs') %>
+
+
+<script>
+  window.onresize = coverResize;
+  window.onload = coverResize;
+  function coverResize(){
+    var cover = document.getElementById("cover") ;
+    var coverHeight = window.getComputedStyle(cover, null).height;
+    var body = document.getElementsByTagName("body")[0];
+    var bodyHeight = window.getComputedStyle(body,null).height;
+    bodyHeight = bodyHeight.substring(0,bodyHeight.length-2);
+    coverHeight = coverHeight.substring(0,coverHeight.length-2);
+    var margin = (bodyHeight - coverHeight)/2 + "px";
+    document.getElementById("cover").style.marginTop = margin;
+    document.getElementById("cover").style.marginBottom = margin;
+  }
+</script>

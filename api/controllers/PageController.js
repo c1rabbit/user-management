@@ -7,7 +7,15 @@
 
 module.exports = {
 	home : function(req, res){
-		return res.view('home');
+		if (typeof req.session.me != 'undefined'){
+			return res.view('home');
+		}else{
+			Property.find({
+				active: true
+			}).exec(function(err, properties){
+				return res.view('public/home', {properties});
+			});
+		}
 	}
 
 };

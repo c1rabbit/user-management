@@ -50,7 +50,7 @@ module.exports.policies = {
     'removeRole': 'isAdmin'
   },
   PageController:{
-    '*':'sessionAuth'
+    '*':true
   },
   PropertyController:{
     '*': false,

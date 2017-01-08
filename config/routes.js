@@ -32,7 +32,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': { view: 'user/login' },
+  '/': 'PageController.home',
   '/home': 'PageController.home',
 
   'get /login' : { view: 'user/login'},
