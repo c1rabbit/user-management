@@ -19,6 +19,7 @@ body{
 
 body > section{
   background-color: #fff;
+  min-height:100%;
 }
 
 nav.navbar + * {
