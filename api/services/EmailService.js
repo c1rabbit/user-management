@@ -19,7 +19,7 @@ module.exports = {
       text: text
     };
 
-    mailgun.messages().send(data, function (error, body) {
+    mailgun.messages().send(data, function (err, body) {
       console.log(body);
       done(err);
     });

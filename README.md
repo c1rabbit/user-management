@@ -16,6 +16,10 @@ create database called: `user_management`
 
 configure db settings in: `config/connections.js`
 
+setup session store with [MongoDB](https://www.mongodb.com/)
+
+configure session store settings in: `config/session.js`
+
 signup [mailgun.js](https://www.mailgun.com/)
 update config settings in `config/mailgun.js`
 
