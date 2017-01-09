@@ -19,10 +19,38 @@ body{
 
 body > section{
   background-color: #fff;
+
+}
+body > section:first-of-type{
   min-height:100%;
 }
 
 nav.navbar + * {
   padding-top:50px;
   margin-top:1em;
+}
+
+#listings h2{
+  text-align: center;
+  padding: 1em;
+}
+#listings h3{
+  margin-top:0;
+}
+#listings h4{
+  margin-bottom:0;
+}
+#listings .row{
+  margin-left: 1em;
+  margin-right: 1em;
+}
+#listings span{
+  padding:1em;
+  height:300px;
+  border:1px solid #aaa;
+  border-radius: 5px;
+  margin:1em;
+}
+#listings img{
+  width:100%;
 }
