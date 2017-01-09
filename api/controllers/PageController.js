@@ -13,7 +13,10 @@ module.exports = {
 			Property.find({
 				active: true
 			}).exec(function(err, properties){
-				return res.view('public/home', {properties});
+				return res.view('public/home', {
+					properties,
+					layout : 'layout_public'
+				});
 			});
 		}
 	}

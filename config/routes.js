@@ -35,7 +35,12 @@ module.exports.routes = {
   '/': 'PageController.home',
   '/home': 'PageController.home',
 
-  'get /login' : { view: 'user/login'},
+  'get /login' : {
+    view: 'user/login',
+    locals: {
+      layout: 'layout_public'
+    }
+  },
   'post /login' : 'UserController.login',
   '/logout' : 'UserController.logout',
 
@@ -51,7 +56,12 @@ module.exports.routes = {
   '/editRole': 'RoleController.editRole',
   '/removeRole': 'RoleController.removeRole',
 
-  '/forgotPassword': {view: 'user/forgotPassword'},
+  '/forgotPassword': {
+    view: 'user/forgotPassword',
+    locals: {
+      layout: 'layout_public'
+    }
+  },
   '/emailPass': 'UserController.emailPassword',
 
   '/listProperties': 'PropertyController.listProperties',

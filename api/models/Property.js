@@ -29,19 +29,23 @@ module.exports = {
       type:'string'
     },
     bed:{
-      type:'float'
+      type:'float',
+      defaultsTo:null
     },
     bath:{
-      type:'float'
+      type:'float',
+      defaultsTo:null
     },
     listPrice:{
-      type:'int'
+      type:'int',
+      defaultsTo:null
     },
     yearBuilt:{
       type:'int'
     },
     sqft:{
-      type:'int'
+      type:'int',
+      defaultsTo:null
     },
     images:{
       collection:'images'

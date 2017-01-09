@@ -37,6 +37,41 @@
         </div>
       </div>
       <div class="form-group">
+        <label class="control-label">Bedrooms</label>
+        <div>
+          <input type="number" name="bed" placeholder="Bedrooms" class="form-control"
+            value="<%= (typeof message != 'undefined') ? req.param('bed') : '' %>" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Bathrooms</label>
+        <div>
+          <input type="number" name="bath" placeholder="Bathrooms" class="form-control"
+            value="<%= (typeof message != 'undefined') ? req.param('bath') : '' %>" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label">List Price</label>
+        <div>
+          <input type="number" name="listPrice" placeholder="Listing Price" class="form-control"
+            value="<%= (typeof message != 'undefined') ? req.param('listPrice') : '' %>" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Year Built</label>
+        <div>
+          <input type="number" name="yearBuilt" placeholder="Year" class="form-control"
+            value="<%= (typeof message != 'undefined') ? req.param('yearBuilt') : '' %>" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Space</label>
+        <div>
+          <input type="number" name="sqft" placeholder="square feet" class="form-control"
+            value="<%= (typeof message != 'undefined') ? req.param('sqft') : '' %>" />
+        </div>
+      </div>
+      <div class="form-group">
         <label class="control-label">Active</label>
         <div>
           <div class="radio-inline">

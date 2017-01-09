@@ -8,27 +8,42 @@
           <img src="..." alt="...">
           <div class="caption">
             <h3><%= prop.city.toUpperCase() %></h3>
-            <h4>$<%= prop.listPrice %></h4>
+            <h4>$<%= parseFloat(prop.listPrice).toFixed(2) %></h4>
           </div>
         </div>
       </div>
     <% }); %>
   </div>
   <h2>Active Listings</h2>
-  <div class="row text-center">
+  <% var propCount = 0 %>
+
     <% properties.forEach(function(prop){ %>
-      <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <img src="..." alt="...">
-          <div class="caption">
-            <h4><%= prop.address.toUpperCase() %></h4>
-            <h3><%= prop.city.toUpperCase() %></h3>
-            <h4>$<%= prop.listPrice %></h4>
-            <p><%= prop.bed %> bed |<%= prop.bath %> bath</p>
-            <p><%= prop.sqft %>sq. ft.</p>
+
+      <% if (propCount % 3 == 0) { %>
+      <div class="row text-center">
+      <% } %>
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail">
+            <img src="..." alt="...">
+            <div class="caption">
+              <h4><%= prop.address.toUpperCase() %></h4>
+              <h3><%= prop.city.toUpperCase() %></h3>
+              <% if (prop.listPrice != null ) { %>
+              <h4>$<%= parseFloat(prop.listPrice).toFixed(2) %></h4>
+              <% } %>
+              <% if (prop.bed != null && prop.bath != null ) { %>
+                <p><%= prop.bed %> bed | <%= prop.bath %> bath</p>
+              <% } %>
+              <% if (prop.sqft != null ) { %>
+                <p><%= prop.sqft %> sq. ft.</p>
+              <% } %>
+            </div>
           </div>
         </div>
+      <% propCount++ %>
+      <% if (propCount % 3 == 0) { %>
       </div>
+      <% } %>
     <% }); %>
   </div>
 

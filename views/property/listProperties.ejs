@@ -24,6 +24,9 @@
       <th>City</th>
       <th>State</th>
       <th>Zip</th>
+      <th>List Price</th>
+      <th>Bed</th>
+      <th>Bath</th>
       <th></th>
     </tr>
     <% properties.forEach( function (property){ %>
@@ -32,6 +35,9 @@
       <td><%= property.city %></td>
       <td><%= property.state %></td>
       <td><%= property.zip %></td>
+      <td><%= parseFloat(property.listPrice).toFixed(2) %></td>
+      <td><%= property.bed %></td>
+      <td><%= property.bath %></td>
       <td><a href="/editProperty?id=<%= property.id %> "> <span class="glyphicon glyphicon-edit"></span></a> </td>
     </tr>
     <% }) %>

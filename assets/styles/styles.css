@@ -37,8 +37,8 @@ nav.navbar + * {
 #listings h3{
   margin-top:0;
 }
-#listings h4{
-  margin-bottom:0;
+#listings p,#listings h4{
+  margin:0;
 }
 #listings .row{
   margin-left: 1em;
