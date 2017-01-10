@@ -48,7 +48,7 @@ module.exports = {
       defaultsTo:null
     },
     images:{
-      collection:'images'
+      collection:'image'
     },
     status:{
       model:'Status'
@@ -56,6 +56,11 @@ module.exports = {
     active:{
       type:'boolean',
       defaultsTo:false
+    },
+
+    addImage: function(options, cb){
+      this.images.add(options.image);
+      this.save(cb(err,{file:uploadedFile}));
     }
 
   }

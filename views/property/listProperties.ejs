@@ -28,6 +28,7 @@
       <th>Bed</th>
       <th>Bath</th>
       <th></th>
+      <th></th>
     </tr>
     <% properties.forEach( function (property){ %>
     <tr>
@@ -39,6 +40,7 @@
       <td><%= property.bed %></td>
       <td><%= property.bath %></td>
       <td><a href="/editProperty?id=<%= property.id %> "> <span class="glyphicon glyphicon-edit"></span></a> </td>
+      <td><a href="/editPhotos/?id=<%= property.id %> "> <span class="glyphicon glyphicon-picture"></span></a> </td>
     </tr>
     <% }) %>
 

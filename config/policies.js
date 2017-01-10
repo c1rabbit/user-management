@@ -27,6 +27,9 @@ module.exports.policies = {
   ***************************************************************************/
 
   '*': false,
+  Property:{
+    'isActive':true
+  },
 
   UserController: {
     '*': false,
@@ -56,7 +59,9 @@ module.exports.policies = {
     '*': false,
     'listProperties': 'isAdmin',
     'addProperty': 'isAdmin',
-    'editProperty': 'isAdmin'
+    'editProperty': 'isAdmin',
+    'editPhotos' : 'isAdmin',
+    'addPhoto' : 'isAdmin'
   }
 
   /***************************************************************************

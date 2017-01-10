@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-
+  tableName: 'images',
   attributes: {
     id:{
       type:'int',

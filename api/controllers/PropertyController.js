@@ -84,16 +84,54 @@ module.exports = {
 				property.active = req.param('active');
 
 				property.save(function(err, result){
-					if(err) return res.json(err);
+					if(err) return res.serverError(err);
 					else return res.view('home', {
 						message:"Property information updated",
 						status:'success'
 					});
 				})
 			});
-
 		}
-}
+	},
+	editPhotos : function(req, res){
+		Property.findOne({
+			id: req.param('id')
+		}).populate('images').exec(function(err, prop){
+			if (err) return res.serverError(err);
+			return res.view('property/editPhoto', {property: prop});
+		});
+	},
+	addPhoto : function(req, res){
 
+		Property.findOne({
+			id: req.param('id'),
+			active:true
+		}).populate('images').exec(function(err, prop){
+			if(err) return res.serverError(err);
+			if(prop.length == 0 ) return res.serverError("Property not found or is not active");
+
+			req.file('photo').upload({
+				maxBytes: 1000 * 1024 * 10,
+				dirname: require('path').resolve(sails.config.appPath, 'assets/images/properties/' + req.param('id'))
+				//dirname: '././assets/images/properties/' + req.param('id')
+			}, function(err, uploadedFiles){
+				if (err) return res.negotiate(err);
+				var imgPath = uploadedFiles[0].fd.split('\\')
+				prop.images.add({
+					url: imgPath[imgPath.length-1]
+				});
+
+				prop.save(function(err, result){
+					if (err) return res.serverError(err);
+					sails.log.info("Photo added to property id: " + req.param('id'));
+					return res.json({
+						message: uploadedFiles.length + " file uploaded successfully!",
+						files:uploadedFiles
+					});
+				});
+
+			});
+		});
+	}
 
 };

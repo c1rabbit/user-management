@@ -1,0 +1,24 @@
+<%- partial('submenu.ejs') %>
+<div class="col-xs-10 col-xs-offset-1 ">
+  <h2>Edit Photos</h2>
+
+  <%- partial('../error.ejs') %>
+
+  <div>
+    Property: <%= property.address %>, <%= property.city %>
+  </div>
+  <form action="/addPhoto" method="post" enctype="multipart/form-data" class="form">
+    <input type="hidden" name='id' value="<%= property.id %>" />
+    <input type="file"  name="photo" />
+    <input type="submit" name="Upload" />
+
+  </form>
+
+
+  <% property.images.forEach(function(img){ %>
+  <span class="col-xs-6 col-sm-4">
+    <img src="/images/properties/<%= property.id +'/'+ img.url %>" class="img-thumbnail" />
+  </span>
+  <% }) %>
+
+</div>

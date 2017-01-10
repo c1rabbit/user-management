@@ -66,10 +66,10 @@ module.exports.routes = {
 
   '/listProperties': 'PropertyController.listProperties',
   '/addProperty' : 'PropertyController.addProperty',
-  '/editProperty' : 'PropertyController.editProperty'
-
-
-
+  '/editProperty' : 'PropertyController.editProperty',
+  '/editPhotos' : 'PropertyController.editPhotos',
+  '/addPhoto' : 'PropertyController.addPhoto'
+  
 
   /***************************************************************************
   *                                                                          *
