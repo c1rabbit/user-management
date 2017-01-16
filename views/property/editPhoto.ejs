@@ -7,10 +7,19 @@
   <div>
     Property: <%= property.address %>, <%= property.city %>
   </div>
-  <form action="/addPhoto" method="post" enctype="multipart/form-data" class="form">
+  <form action="/addPhoto" method="post" enctype="multipart/form-data" class="form-horizontal">
     <input type="hidden" name='id' value="<%= property.id %>" />
-    <input type="file"  name="photo" />
-    <input type="submit" name="Upload" />
+    <div class="form-group">
+      <label class="control-label">File</label>
+      <div>
+        <input type="file" name="photo"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div>
+        <button class="btn btn-default pull-left" type="submit" >Upload</button>
+      </div>
+    </div>
 
   </form>
 

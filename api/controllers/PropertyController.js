@@ -7,6 +7,7 @@
 
 module.exports = {
 	listProperties : function(req, res){
+		var numeral = require('numeral');
 		var active;
 		if (typeof req.param('active') == 'undefined') {
 			active = true;
@@ -16,9 +17,9 @@ module.exports = {
 		}
 		Property.find({
 			active:active
-		}).exec(function(err, properties){
+		}).populate('images').exec(function(err, properties){
 			if (err) return res.err(err);
-			return res.view('property/listProperties',{properties});
+			return res.view('property/listProperties',{properties, numeral});
 		});
 	},
 	addProperty : function(req, res){

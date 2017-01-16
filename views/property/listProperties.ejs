@@ -28,7 +28,7 @@
       <th>Bed</th>
       <th>Bath</th>
       <th></th>
-      <th></th>
+      <th colspan="2">Images</th>
     </tr>
     <% properties.forEach( function (property){ %>
     <tr>
@@ -36,10 +36,11 @@
       <td><%= property.city %></td>
       <td><%= property.state %></td>
       <td><%= property.zip %></td>
-      <td><%= parseFloat(property.listPrice).toFixed(2) %></td>
+      <td><%= numeral(property.listPrice).format('$0,0.00') %></td>
       <td><%= property.bed %></td>
       <td><%= property.bath %></td>
       <td><a href="/editProperty?id=<%= property.id %> "> <span class="glyphicon glyphicon-edit"></span></a> </td>
+      <td><%= property.images.length %></td>
       <td><a href="/editPhotos/?id=<%= property.id %> "> <span class="glyphicon glyphicon-picture"></span></a> </td>
     </tr>
     <% }) %>

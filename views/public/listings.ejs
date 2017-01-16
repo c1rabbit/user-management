@@ -8,7 +8,7 @@
           <img src="..." alt="...">
           <div class="caption">
             <h3><%= prop.city.toUpperCase() %></h3>
-            <h4>$<%= parseFloat(prop.listPrice).toFixed(2) %></h4>
+            <h4><%= numeral(prop.listPrice).format('$0,0.00') %></h4>
           </div>
         </div>
       </div>
@@ -24,12 +24,16 @@
       <% } %>
         <div class="col-sm-6 col-md-4">
           <div class="thumbnail">
-            <img src="..." alt="...">
+            <% if (typeof prop.images[0] == 'undefined') { %>
+              <img />
+            <% } else { %>
+              <img src="images/properties/<%= prop.id + '/' + prop.images[0].url %>" alt="prop.images[0].filename" />
+            <% } %>
             <div class="caption">
               <h4><%= prop.address.toUpperCase() %></h4>
               <h3><%= prop.city.toUpperCase() %></h3>
               <% if (prop.listPrice != null ) { %>
-              <h4>$<%= parseFloat(prop.listPrice).toFixed(2) %></h4>
+              <h4><%= numeral(prop.listPrice).format('$0,0.00') %></h4>
               <% } %>
               <% if (prop.bed != null && prop.bath != null ) { %>
                 <p><%= prop.bed %> bed | <%= prop.bath %> bath</p>
