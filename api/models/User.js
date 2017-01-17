@@ -9,7 +9,7 @@ module.exports = {
   tableName: "users",
   attributes: {
     id:{
-      type:'int',
+      type:'integer',
       primaryKey:true,
       autoIncrement:true
     },
