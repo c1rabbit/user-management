@@ -8,11 +8,11 @@
 module.exports = {
   tableName: 'images',
   attributes: {
-    id:{
-      type:'int',
-      primaryKey:true,
-      autoIncrement:true
-    },
+    // id:{
+    //   type:'integer',
+    //   primaryKey:true,
+    //   autoIncrement:true
+    // },
     primary:{
       type:'boolean',
       default:'false'

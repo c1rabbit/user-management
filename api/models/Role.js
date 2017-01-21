@@ -9,6 +9,7 @@ module.exports = {
   tableName: "roles",
   attributes: {
     // id:{
+    //   type:'integer',
     //   autoIncrement: true,
     //   primaryKey: true
     // },

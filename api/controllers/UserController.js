@@ -37,7 +37,8 @@ module.exports = {
 			}
 			else if(bcrypt.compareSync(pw, user.password) ){
 				//sails.log(user);
-				req.session.me = user.id;
+				//req.session.me = user.id;
+				req.session.login = user.login;
 				req.session.name = user.f_name;
 				if(user.isAdmin()) {
 					req.session.isAdmin = true;

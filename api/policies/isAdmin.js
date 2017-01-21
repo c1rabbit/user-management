@@ -13,10 +13,11 @@ module.exports = function(req, res, next) {
   // or if this is the last policy, the controller
 
   User.findOne({
-    id:req.session.me
+    login:req.session.login
   }).populate('roles')
   .exec(function(err, user){
     if(err || typeof user == 'undefined') {
+      sails.log.debug("[policy/isAdmin]error:" + err);
       sails.log.warn("[policy/isAdmin]: failed");
       return res.forbidden();
     }

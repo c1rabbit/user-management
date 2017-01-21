@@ -8,11 +8,11 @@
 module.exports = {
   tableName: "users",
   attributes: {
-    id:{
-      type:'integer',
-      primaryKey:true,
-      autoIncrement:true
-    },
+    // id:{
+    //   type:'integer',
+    //   primaryKey:true,
+    //   autoIncrement:true
+    // },
     login:{
       type: 'string',
       unique: true,

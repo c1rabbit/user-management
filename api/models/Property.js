@@ -8,11 +8,11 @@
 module.exports = {
   tableName:'properties',
   attributes: {
-    id:{
-      type:'integer',
-      primaryKey:true,
-      autoIncrement:true
-    },
+    // id:{
+    //   type:'integer',
+    //   primaryKey:true,
+    //   autoIncrement:true
+    // },
     address:{
       type:'string',
     },
