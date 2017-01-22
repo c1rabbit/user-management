@@ -12,17 +12,45 @@ module.exports = {
 			return res.view('home');
 		}else{
 			Property.find({
-				active: true
-			}).populate('images', {
-				where: {
-					primary: true
-				}
-			}).exec(function(err, properties){
-				return res.view('public/home', {
-					properties,
-					layout : 'layout_public',
-					numeral
-				});
+				active: true,
+				sort: 'primary'
+			}).populate('images').exec(function(err, properties){
+				if (err) return res.serverError(err);
+
+				//get featrued properties
+				Property.find({
+		      feature: true
+		    },{
+		      city:1,
+		      listPrice:1
+		    }).populate('images',{
+		      where: {
+		        primary:true
+		      },
+		      limit: 1
+		    }).exec(function(err, featured){
+		      if (err) sails.log("[PageController/home]: " + err);
+					var tempFeat = [];
+					featured.forEach(function(feat){
+						tempFeat.push({
+							city : feat.city,
+							listPrice : feat.listPrice,
+							id: feat.id,
+							images: feat.images
+						})
+					});
+					//console.log(tempFeat);
+
+					return res.view('public/home', {
+						properties,
+						layout : 'layout_public',
+						numeral,
+						featured: tempFeat
+					});
+
+		    });
+
+
 			});
 		}
 	}

@@ -14,7 +14,7 @@ module.exports = {
     //   autoIncrement:true
     // },
     address:{
-      type:'string',
+      type:'string'
     },
     city:{
       type:'string'
@@ -54,6 +54,10 @@ module.exports = {
       model:'Status'
     },
     active:{
+      type:'boolean',
+      defaultsTo:false
+    },
+    feature:{
       type:'boolean',
       defaultsTo:false
     },

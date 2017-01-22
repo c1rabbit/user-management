@@ -85,7 +85,7 @@ module.exports = {
 				property.active = req.param('active');
 
 				property.save(function(err, result){
-					if(err) return res.serverError(err);
+					if(err) return res.serverError("[PropertyController/editProperty]:save" + err);
 					else return res.view('home', {
 						message:"Property information updated",
 						status:'success'
@@ -108,7 +108,7 @@ module.exports = {
 			id: req.param('id'),
 			active:true
 		}).populate('images').exec(function(err, prop){
-			if(err) return res.serverError(err);
+			if(err) return res.serverError("[PropertyController/addPhoto]:add photo" + err);
 			if(prop.length == 0 ) return res.serverError("Property not found or is not active");
 
 			req.file('photo').upload({
@@ -118,12 +118,15 @@ module.exports = {
 			}, function(err, uploadedFiles){
 				if (err) return res.negotiate(err);
 				var imgPath = uploadedFiles[0].fd.split('\\')
+				console.log(uploadedFiles);
 				prop.images.add({
-					url: imgPath[imgPath.length-1]
+					url: imgPath[imgPath.length-1],
+					filename: uploadedFiles[0].filename,
+					size: uploadedFiles[0].size
 				});
 
 				prop.save(function(err, result){
-					if (err) return res.serverError(err);
+					if(err) return res.serverError("[PropertyController/addPhoto]:save" + err);
 					sails.log.info("Photo added to property id: " + req.param('id'));
 					return res.json({
 						message: uploadedFiles.length + " file uploaded successfully!",

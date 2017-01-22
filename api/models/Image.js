@@ -15,11 +15,24 @@ module.exports = {
     // },
     primary:{
       type:'boolean',
-      default:'false'
+      defaultsTo:false,
+      required:true
     },
     url:{
       type:'string',
       required:true
+    },
+    size:{
+      required:true
+    },
+    filename:{
+      type:'string',
+      required:true
+    },
+    description:{
+      type:'string',
+      required:true,
+      defaultsTo:' '
     }
 
   }
