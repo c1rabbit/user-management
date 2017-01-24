@@ -53,6 +53,22 @@ module.exports = {
 
 			});
 		}
+	},
+	view : function(req, res){
+		if(typeof req.param('id') == 'undefined'){
+			return res.view('public/home');
+		}
+		else{
+
+			Property.findOne({
+				id:req.param('id')
+			}).populate('images').exec(function(err, prop){
+				if(err) return res.serverError(err);
+				return res.view('public/view', {prop});
+			});
+
+		}
+
 	}
 
 };

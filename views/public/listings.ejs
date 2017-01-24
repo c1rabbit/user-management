@@ -33,11 +33,13 @@
       <% } %>
         <div class="col-sm-6 col-md-4">
           <div class="thumbnail">
-            <% if (typeof prop.images[0] == 'undefined') { %>
-              <img src="images/TBD.png" alt="TBD"/>
-            <% } else { %>
-              <img src="images/properties/<%= prop.id + '/' + prop.images[0].url %>" alt="<%= prop.images[0].filename %>" />
-            <% } %>
+            <a href="/view?id=<%= prop.id %>" >
+              <% if (typeof prop.images[0] == 'undefined') { %>
+                <img src="images/TBD.png" alt="TBD"/>
+              <% } else { %>
+                <img src="images/properties/<%= prop.id + '/' + prop.images[0].url %>" alt="<%= prop.images[0].filename %>" />
+              <% } %>
+            </a>
             <div class="caption">
               <h4><%= prop.address.toUpperCase() %></h4>
               <h3><%= prop.city.toUpperCase() %></h3>

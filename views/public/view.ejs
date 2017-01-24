@@ -1,0 +1,76 @@
+<div class="container">
+  <h2><%= prop.address %> <small><%= prop.city + ", " + prop.state + ", " + prop.zip%></small></h2>
+  <% if (typeof prop.images[0] == 'undefined') { %>
+    <img src="images/TBD.png" alt="TBD"/>
+  <% } else { %>
+    <!-- <a href="images/properties/<%= prop.id + '/' + prop.images[0].url %>" data-lightbox="subject" data-title="<%= prop.address %>">
+      <img src="images/properties/<%= prop.id + '/' + prop.images[0].url %>" alt="<%= prop.images[0].filename %>" class="thumbnail" />
+    </a>
+    <a href="images/properties/<%= prop.id + '/' + prop.images[0].url %>" data-lightbox="subject">
+      <img src="images/properties/<%= prop.id + '/' + prop.images[0].url %>" alt="<%= prop.images[0].filename %>" class="thumbnail" />
+    </a> -->
+  <% } %>
+
+</div>
+
+
+
+<div class="slider js_slider simple">
+    <div class="frame js_frame">
+        <ul class="slides js_slides">
+            <li class="js_slide">
+              <a href="images/properties/<%= prop.id + '/' + prop.images[0].url %>" data-lightbox="subject" data-title="<%= prop.address %>">
+                <img src="images/properties/<%= prop.id + '/' + prop.images[0].url %>" alt="<%= prop.images[0].filename %>" class=""  />
+              </a>
+            </li>
+            <li class="js_slide">
+              <a href="images/properties/<%= prop.id + '/' + prop.images[0].url %>" data-lightbox="subject" data-title="<%= prop.address %>">
+                <img src="images/properties/<%= prop.id + '/' + prop.images[0].url %>" alt="<%= prop.images[0].filename %>" class="" />
+              </a>
+            </li>
+            <li class="js_slide">
+              <a href="images/properties/<%= prop.id + '/' + prop.images[0].url %>" data-lightbox="subject" data-title="<%= prop.address %>">
+                <img src="images/properties/<%= prop.id + '/' + prop.images[0].url %>" alt="<%= prop.images[0].filename %>" class="" />
+              </a>
+            </li>
+        </ul>
+        <span class="js_prev prev">
+          <!-- <span class="glyphicon glyphicon-chevron-left"></span> -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="100" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+        </span>
+        <span class="js_next next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="100" viewBox="0 0 501.5 501.5"><g><path fill="#2E435A" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+        </span>
+    </div>
+</div>
+  <span class="glyphicon glyphicon-chevron-left"></span>
+
+<script src="js/lory.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+    function handleEvent(e){
+      var img = document.getElementsByClassName('active')[0].childNodes[1].childNodes[1]; //img
+      var slider = document.getElementsByClassName('slider')[0];
+      var frame = document.getElementsByClassName('frame')[0];
+
+      document.getElementsByClassName('frame')[0].style.width = img.width + "px" ;
+      document.getElementsByClassName('slider')[0].style.width = img.width + 50 + "px" ;
+
+
+      for(var i =0 ; i< simple_li.length; i++){
+        //simple_li[i].style.width = img.width + "px";
+      };
+
+    }
+    var slider = document.querySelector('.js_slider');
+    //var width = slider.getElementsByClassName('js_slide')[0].childNodes[1].childNodes[1].width;
+    //console.log(width);
+  //  slider.addEventListener('after.lory.slide', handleEvent);
+
+    lory(slider, {
+        infinite: 1
+    });
+    //handleEvent(null);
+  });
+</script>
