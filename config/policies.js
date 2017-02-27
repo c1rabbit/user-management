@@ -61,7 +61,8 @@ module.exports.policies = {
     'addProperty': 'isAdmin',
     'editProperty': 'isAdmin',
     'editPhotos' : 'isAdmin',
-    'addPhoto' : 'isAdmin'
+    'addImage' : 'isAdmin',
+    'deleteImage' : 'isAdmin'
   }
 
   /***************************************************************************

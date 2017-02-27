@@ -69,7 +69,8 @@ module.exports.routes = {
   '/addProperty' : 'PropertyController.addProperty',
   '/editProperty' : 'PropertyController.editProperty',
   '/editPhotos' : 'PropertyController.editPhotos',
-  '/addPhoto' : 'PropertyController.addPhoto'
+  '/addImage' : 'PropertyController.addImage',
+  '/deleteImage' : 'PropertyController.deleteImage'
 
 
   /***************************************************************************

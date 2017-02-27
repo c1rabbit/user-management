@@ -7,7 +7,8 @@
   <div>
     Property: <%= property.address %>, <%= property.city %>
   </div>
-  <form action="/addPhoto" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+  <form action="/addImage" method="post" enctype="multipart/form-data" class="form-horizontal container">
     <input type="hidden" name='id' value="<%= property.id %>" />
     <div class="form-group">
       <label class="control-label">File</label>
@@ -27,6 +28,7 @@
   <% property.images.forEach(function(img){ %>
   <span class="col-xs-6 col-sm-4">
     <img src="/images/properties/<%= property.id +'/'+ img.url %>" class="img-thumbnail" />
+    <a href="/deleteImage?id=<%= property.id %>&img=<%= img.id %>&imgUrl=<%= img.url %>">delete</a>
   </span>
   <% }) %>
 

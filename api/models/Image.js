@@ -29,6 +29,10 @@ module.exports = {
       type:'string',
       required:true
     },
+    filetype:{
+      type:'string',
+      required:true
+    },
     description:{
       type:'string',
       required:true,

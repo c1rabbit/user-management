@@ -102,7 +102,7 @@ module.exports = {
 			return res.view('property/editPhoto', {property: prop});
 		});
 	},
-	addPhoto : function(req, res){
+/*	addPhoto2 : function(req, res){
 
 		Property.findOne({
 			id: req.param('id'),
@@ -128,13 +128,51 @@ module.exports = {
 				prop.save(function(err, result){
 					if(err) return res.serverError("[PropertyController/addPhoto]:save" + err);
 					sails.log.info("Photo added to property id: " + req.param('id'));
+
+					//successfully
 					return res.json({
 						message: uploadedFiles.length + " file uploaded successfully!",
 						files:uploadedFiles
 					});
+
 				});
 
 			});
+		});
+	},*/
+	addImage: function(req, res){
+
+		req.file('photo').upload({
+			maxBytes: 1000 * 1024 * 10,
+			dirname: require('path').resolve(sails.config.paths.propertyImage, req.param('id'))
+		}, function(err, uploadedFiles){
+			if (err) return res.negotiate(err);
+			var imgPath = uploadedFiles[0].fd.split('\\')
+			console.log(uploadedFiles);
+
+			Property.addImage({
+				id : req.param('id'),
+				url: imgPath[imgPath.length-1],
+				filename: uploadedFiles[0].filename,
+				size: uploadedFiles[0].size,
+				filetype: uploadedFiles[0].type
+			}, function(err, result){
+				if(err) return res.serverError(err);
+				//sails.log(result);
+				return res.view('property/status', {status:'success', message:'image uploaded'} );
+				//return res.view('property/editPhoto', {status: 'success', message:result});
+			});
+		});
+
+	},
+	deleteImage: function(req, res){
+		Property.deleteImage({
+			id: req.param('id'),
+			img: req.param('img'),
+			imgUrl: req.param('imgUrl')
+		}, function(err, result){
+			if(err) return res.serverError(err);
+			return res.view('property/status', {status:'success', message:'image deleted'} );
 		});
 	}
 
