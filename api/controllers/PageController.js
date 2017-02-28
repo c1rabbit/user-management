@@ -8,8 +8,8 @@
 module.exports = {
 	home : function(req, res){
 		var numeral = require('numeral');
-		if (typeof req.session.me != 'undefined'){
-			return res.view('home');
+		if (typeof req.session.login != 'undefined'){
+			return res.view('home', {numeral});
 		}else{
 			Property.find({
 				active: true,
@@ -59,16 +59,23 @@ module.exports = {
 			return res.view('public/home');
 		}
 		else{
-
 			Property.findOne({
 				id:req.param('id')
 			}).populate('images').exec(function(err, prop){
 				if(err) return res.serverError(err);
 				return res.view('public/view', {prop});
 			});
-
 		}
-
+	},
+	getStorage : function(req, res){
+		Image.find({
+			sum: [ 'size' ]
+		}).exec(function(err, images){
+				//console.log(images[0]);
+				if(err) res.json(err);
+				return res.json(images[0]);
+			}
+		)
 	}
 
 };

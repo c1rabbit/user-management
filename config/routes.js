@@ -35,6 +35,7 @@ module.exports.routes = {
   '/': 'PageController.home',
   '/home': 'PageController.home',
   '/view': 'PageController.view',
+  '/getStorage' : 'PageController.getStorage',
 
   'get /login' : {
     view: 'user/login',
@@ -71,6 +72,8 @@ module.exports.routes = {
   '/editPhotos' : 'PropertyController.editPhotos',
   '/addImage' : 'PropertyController.addImage',
   '/deleteImage' : 'PropertyController.deleteImage'
+
+
 
 
   /***************************************************************************

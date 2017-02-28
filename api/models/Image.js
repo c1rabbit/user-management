@@ -23,6 +23,7 @@ module.exports = {
       required:true
     },
     size:{
+      type:'float',
       required:true
     },
     filename:{
